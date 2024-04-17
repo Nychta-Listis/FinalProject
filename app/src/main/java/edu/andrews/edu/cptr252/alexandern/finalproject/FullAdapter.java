@@ -23,7 +23,7 @@ public class FullAdapter extends RecyclerView.Adapter<FullAdapter.EventViewHolde
     @NonNull
     @Override
     public FullAdapter.EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.eventFull_cell, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_full_cell, parent, false);
         return new FullAdapter.EventViewHolder(v);
     }
 
