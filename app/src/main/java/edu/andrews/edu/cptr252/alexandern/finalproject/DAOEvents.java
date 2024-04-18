@@ -54,6 +54,9 @@ public class DAOEvents  extends SQLiteOpenHelper {
         emptyEvent.setIdDB(-3L);
         events.add(emptyEvent);
 
+        // IdDB = -4L ---> Event can't be found in database
+        // IdDB = -5L ---> Choice 2 flagged as no choice available
+
         while(cursor.moveToNext()){
             EventData e = new EventData();
 

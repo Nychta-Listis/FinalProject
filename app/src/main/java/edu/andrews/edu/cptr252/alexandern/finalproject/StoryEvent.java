@@ -1,12 +1,18 @@
 package edu.andrews.edu.cptr252.alexandern.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
 public class StoryEvent extends AppCompatActivity {
 
+    private Fragment1 fragment1;
+    private Fragment2 fragment2;
     private DAOEvents helper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,33 +23,46 @@ public class StoryEvent extends AppCompatActivity {
 
         if (extras != null){
             Long destID = extras.getLong("destID");
-            testEvent(-2L, destID, true);
+            prepareEvent(-2L, destID, true);
         }
+        fragment1 = new Fragment1();
+        fragment2 = new Fragment2();
     }
-    void testEvent(Long idS, Long idD, Boolean isFirst) {
-
+    void prepareEvent(Long idS, Long idD, Boolean isFirst) {
         if (idD == -3L) {
-            // Say event not yet defined, ask if want to create an event, or redefine destination of this choice
+            missingEvent(idS, isFirst);
         } else if (idD == -2L) {
-            // Go to menu
+            Intent intent = new Intent(StoryEvent.this, MainActivity.class);
+            startActivity(intent);
         } else {
             EventData newEvent = helper.searchEvent(idD);
             if (newEvent.getIdDB().equals(-4L)) {
-                // Say event missing, ask if want to create an event, or redefine destination
+                missingEvent(idS, isFirst);
             } else {
+                Bundle bundle = new Bundle();
+                bundle.putLong("idD",idD);
+                bundle.putBoolean("isFirst",isFirst);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
                 if (newEvent.getChoice2id().equals(-5L)) {
-                    //Pass everything to fragment 1
+                    fragment1.setArguments(bundle);
+                    transaction.replace(R.id.fragment, fragment1);
+                    transaction.commit();
                 } else {
-                    //Pass everything to fragment 2
+                    fragment2.setArguments(bundle);
+                    transaction.replace(R.id.fragment, fragment2);
+                    transaction.commit();
                 }
             }
         }
 
     }
-    void missingEvent(Long idS, Boolean IsFirst) {
-        // Ask if want to replace or reassign.
-        //  If reassign, go to eventList and select an event, reassign
-        //  If create, go to create new and run all of that stuff.
+    void missingEvent(Long idS, Boolean isFirst) {
+        // Say event not yet defined, ask if want to create an event, or redefine destination of this choice
+        Long newId = 0L; //result from either creating event or redefining destination
+
+        EventData sourceEvent = helper.searchEvent(idS);
+        helper.editChoiceID(sourceEvent,newId,isFirst);// After editing, make sure returns to current event.
     }
 
 
