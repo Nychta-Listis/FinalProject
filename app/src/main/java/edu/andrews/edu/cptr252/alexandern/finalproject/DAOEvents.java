@@ -72,9 +72,9 @@ public class DAOEvents  extends SQLiteOpenHelper {
             e.setName(cursor.getString(nameIndex));
             e.setText(cursor.getString(textIndex));
             e.setChoice1txt(cursor.getString(choice1txtIndex));
-            e.setChoice1id(cursor.getString(choice1idIndex));
+            e.setChoice1id(cursor.getLong(choice1idIndex));
             e.setChoice2txt(cursor.getString(choice2txtIndex));
-            e.setChoice2id(cursor.getString(choice2idIndex));
+            e.setChoice2id(cursor.getLong(choice2idIndex));
             e.setIsInitial(cursor.getString(isInitialIndex));
 
             events.add(e);
@@ -106,9 +106,9 @@ public class DAOEvents  extends SQLiteOpenHelper {
             e.setName(cursor.getString(nameIndex));
             e.setText(cursor.getString(textIndex));
             e.setChoice1txt(cursor.getString(choice1txtIndex));
-            e.setChoice1id(cursor.getString(choice1idIndex));
+            e.setChoice1id(cursor.getLong(choice1idIndex));
             e.setChoice2txt(cursor.getString(choice2txtIndex));
-            e.setChoice2id(cursor.getString(choice2idIndex));
+            e.setChoice2id(cursor.getLong(choice2idIndex));
             e.setIsInitial(cursor.getString(isInitialIndex));
 
             events.add(e);
@@ -140,9 +140,9 @@ public class DAOEvents  extends SQLiteOpenHelper {
             e.setName(cursor.getString(nameIndex));
             e.setText(cursor.getString(textIndex));
             e.setChoice1txt(cursor.getString(choice1txtIndex));
-            e.setChoice1id(cursor.getString(choice1idIndex));
+            e.setChoice1id(cursor.getLong(choice1idIndex));
             e.setChoice2txt(cursor.getString(choice2txtIndex));
-            e.setChoice2id(cursor.getString(choice2idIndex));
+            e.setChoice2id(cursor.getLong(choice2idIndex));
             e.setIsInitial(cursor.getString(isInitialIndex));
 
             if(e.getIsInitial().equals("1")){
@@ -151,6 +151,42 @@ public class DAOEvents  extends SQLiteOpenHelper {
         }
         cursor.close();
         return events;
+    }
+
+    public EventData searchEvent (Long DBID) {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+TABLE+
+                " where id = ?", new String[] {DBID.toString()});
+        EventData e = new EventData();
+
+        if (cursor!= null) {
+            int IdIndex = cursor.getColumnIndex("id");
+            int eventIdIndex = cursor.getColumnIndex("eventId");
+            int nameIndex = cursor.getColumnIndex("name");
+            int textIndex = cursor.getColumnIndex("text");
+            int choice1txtIndex = cursor.getColumnIndex("choice1txt");
+            int choice1idIndex = cursor.getColumnIndex("choice1id");
+            int choice2txtIndex = cursor.getColumnIndex("choice2txt");
+            int choice2idIndex = cursor.getColumnIndex("choice2id");
+            int isInitialIndex = cursor.getColumnIndex("isInitial");
+
+            e.setIdDB(cursor.getLong(IdIndex));
+            e.setId(cursor.getString(eventIdIndex));
+            e.setName(cursor.getString(nameIndex));
+            e.setText(cursor.getString(textIndex));
+            e.setChoice1txt(cursor.getString(choice1txtIndex));
+            e.setChoice1id(cursor.getLong(choice1idIndex));
+            e.setChoice2txt(cursor.getString(choice2txtIndex));
+            e.setChoice2id(cursor.getLong(choice2idIndex));
+            e.setIsInitial(cursor.getString(isInitialIndex));
+        } else {
+            e.setName("missingEvent");
+            e.setId("missingEvent");
+            e.setIdDB(-4L);
+        }
+        cursor.close();
+
+        return e;
+
     }
 
     public void insertEvent (EventData e){
@@ -180,6 +216,15 @@ public class DAOEvents  extends SQLiteOpenHelper {
 
         String[] idToEdit = {e.getIdDB().toString()};
         getWritableDatabase().update(TABLE,values,"id=?",idToEdit);
+    }
+
+    public void editChoiceID (EventData e, Long TargetId, Boolean isFirst) {
+        if (isFirst) {
+            e.setChoice1id(TargetId);
+        } else {
+            e.setChoice2id(TargetId);
+        }
+        editEvent(e);
     }
 
     public void deleteContact (EventData e){
