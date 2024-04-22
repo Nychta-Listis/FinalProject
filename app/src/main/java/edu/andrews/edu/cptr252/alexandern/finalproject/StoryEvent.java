@@ -21,8 +21,10 @@ public class StoryEvent extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
+        EventData destEvent = extras.getParcelable("destEvent");
+
         if (extras != null){
-            Long destID = extras.getLong("destID");
+            Long destID = destEvent.getIdDB();
             prepareEvent(-2L, destID, true);
         }
         fragment1 = new Fragment1();
