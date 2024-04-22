@@ -199,6 +199,17 @@ public class DAOEvents  extends SQLiteOpenHelper {
 
     }
 
+    public Boolean IDexists(String ID, Long IdDB) {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+TABLE+
+                " where eventId = ?", new String[] {ID});
+        EventData e = new EventData();
+        if (cursor != null && IdDB == cursor.getLong(cursor.getColumnIndex("id"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void insertEvent (EventData e){
         ContentValues values = new ContentValues();
         values.put("eventId",e.getId());

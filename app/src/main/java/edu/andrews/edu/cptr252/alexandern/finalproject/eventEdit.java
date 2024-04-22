@@ -28,6 +28,7 @@ public class eventEdit extends AppCompatActivity {
     private CheckBox start_check;
     private DAOEvents helper;
     private int action;
+    private String Checked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,8 @@ public class eventEdit extends AppCompatActivity {
         helper = new DAOEvents(this);
 
         event = getIntent().getParcelableExtra("Event");
+
+
 
         editName = findViewById(R.id.editName);
         editID = findViewById(R.id.editID);
@@ -68,8 +71,7 @@ public class eventEdit extends AppCompatActivity {
         choice1ID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(MainActivity.this, eventSelect.class);
-                intent1.putExtra("contact", contact);
+                Intent intent1 = new Intent(eventEdit.this, eventSelect.class);
                 action = 1;
                 eventSelectLauncher.launch(intent1);
             }
@@ -78,7 +80,9 @@ public class eventEdit extends AppCompatActivity {
         choice2ID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent1 = new Intent(eventEdit.this, eventSelect.class);
+                action = 2;
+                eventSelectLauncher.launch(intent1);
             }
         });
 
@@ -86,12 +90,27 @@ public class eventEdit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Test if Id is repeated/already exists
-                event.setName(editName.getText());
+                if (event.getIdDB()==-1L) {
 
-                event.setId(editID.getText());
-                event.setIsInitial(start_check);
-                event.setChoice1txt();
-                event.setChoice2txt();
+                    event.setName(String.valueOf(editName.getText()));
+                    event.setText(String.valueOf(editDescription.getText()));
+                    event.setId(String.valueOf(editID.getText()));
+
+                    if (start_check.isChecked()) {Checked = "1";} else {Checked = "0";}
+                    event.setIsInitial(Checked);
+
+                    event.setChoice1txt(String.valueOf(choice1Text.getText()));
+                    event.setChoice2txt(String.valueOf(choice2Text.getText()));
+
+                    helper.insertEvent(event);
+                }
+                event.setName(String.valueOf(editName.getText()));
+
+                event.setId(String.valueOf(editID.getText()));
+                if (start_check.isChecked()) {Checked = "1";} else {Checked = "0";}
+                event.setIsInitial(Checked);
+                event.setChoice1txt(String.valueOf(choice1Text.getText()));
+                event.setChoice2txt(String.valueOf(choice2Text.getText()));
             }
         });
 
