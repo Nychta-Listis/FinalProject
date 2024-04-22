@@ -13,6 +13,9 @@
         android:theme="@style/Theme.FinalProject"
         tools:targetApi="31">
         <activity
+            android:name=".eventEdit"
+            android:exported="false" />
+        <activity
             android:name=".StoryEvent"
             android:exported="false" />
         <activity

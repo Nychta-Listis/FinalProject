@@ -155,13 +155,21 @@ public class DAOEvents  extends SQLiteOpenHelper {
         cursor.close();
         return events;
     }
-
     public EventData searchEvent (Long DBID) {
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+TABLE+
                 " where id = ?", new String[] {DBID.toString()});
         EventData e = new EventData();
 
-        if (cursor!= null) {
+        if (DBID == -2L) {
+            e.setName("Main Menu");
+            e.setId("mainMenu");
+            e.setIdDB(-2L);
+        } else if (DBID == -3L) {
+            e.setName("emptyEvent");
+            e.setId("emptyEvent");
+            e.setIdDB(-3L);
+
+        } else if (cursor!= null) {
             int IdIndex = cursor.getColumnIndex("id");
             int eventIdIndex = cursor.getColumnIndex("eventId");
             int nameIndex = cursor.getColumnIndex("name");
@@ -187,7 +195,6 @@ public class DAOEvents  extends SQLiteOpenHelper {
             e.setIdDB(-4L);
         }
         cursor.close();
-
         return e;
 
     }
