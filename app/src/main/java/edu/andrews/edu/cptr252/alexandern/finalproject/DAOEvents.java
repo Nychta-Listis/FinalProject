@@ -156,20 +156,27 @@ public class DAOEvents  extends SQLiteOpenHelper {
         return events;
     }
     public EventData searchEvent (Long DBID) {
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+TABLE+
-                " where id = ?", new String[] {DBID.toString()});
         EventData e = new EventData();
-
         if (DBID == -2L) {
             e.setName("Main Menu");
             e.setId("mainMenu");
             e.setIdDB(-2L);
+            return e;
         } else if (DBID == -3L) {
             e.setName("emptyEvent");
             e.setId("emptyEvent");
             e.setIdDB(-3L);
+            return e;
+        } else if (DBID == -5L) {
+            e.setName("noEvent");
+            e.setId("noEvent");
+            e.setIdDB(-5L);
+            return e;
+        }
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+TABLE+
+                " where id = ?", new String[] {DBID.toString()});
+        if (cursor!= null) {
 
-        } else if (cursor!= null) {
             int IdIndex = cursor.getColumnIndex("id");
             int eventIdIndex = cursor.getColumnIndex("eventId");
             int nameIndex = cursor.getColumnIndex("name");
@@ -203,7 +210,7 @@ public class DAOEvents  extends SQLiteOpenHelper {
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+TABLE+
                 " where eventId = ?", new String[] {ID});
         EventData e = new EventData();
-        if (cursor != null && IdDB == cursor.getLong(cursor.getColumnIndex("id"))) {
+        if (cursor != null && IdDB != cursor.getLong(cursor.getColumnIndex("id"))) {
             return true;
         } else {
             return false;
@@ -234,7 +241,7 @@ public class DAOEvents  extends SQLiteOpenHelper {
         values.put("choice2id",e.getChoice2id());
         values.put("isInitial",e.getIsInitial());
 
-        String[] idToEdit = {e.getIdDB().toString()};
+        String[] idToEdit = {String.valueOf(e.getIdDB())};
         getWritableDatabase().update(TABLE,values,"id=?",idToEdit);
     }
 

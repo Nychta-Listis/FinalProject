@@ -44,7 +44,7 @@ public class NameAdapter extends RecyclerView.Adapter<NameAdapter.EventViewHolde
         TextView name;
         EventViewHolder(View v){
             super(v);
-            name = v.findViewById(R.id.txtName);
+            name = v.findViewById(R.id.storyName);
         }
     }
 

@@ -11,7 +11,7 @@ public class EventData implements Parcelable {
     private String name="";
     private String text="";
     private String choice1txt="";
-    private Long choice1id=-2L;
+    private Long choice1id=-5L;
     private String choice2txt="";
     private Long choice2id=-5L;
     private String isInitial="0";

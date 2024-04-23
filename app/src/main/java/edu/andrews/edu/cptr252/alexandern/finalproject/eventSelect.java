@@ -29,6 +29,7 @@ public class eventSelect extends AppCompatActivity {
     private final int REQUEST_NEW = 1;
     private final int REQUEST_EDIT = 2;
     private int action;
+    private Button returnBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class eventSelect extends AppCompatActivity {
         helper = new DAOEvents(this);
         eventList = helper.getEditList("ASC"); // Ascending
         newEventBtn = findViewById(R.id.new_event);
+        returnBtn = findViewById(R.id.return_button);
 
         recyclerEvents = findViewById(R.id.listView);
         recyclerEvents.setHasFixedSize(true);
@@ -64,6 +66,14 @@ public class eventSelect extends AppCompatActivity {
                 edit.putExtra("Event", new EventData());
                 action = REQUEST_NEW;
                 eventLauncher.launch(edit);
+            }
+        });
+
+        returnBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent menu = new Intent(eventSelect.this, MainActivity.class);
+                eventLauncher.launch(menu);
             }
         });
 

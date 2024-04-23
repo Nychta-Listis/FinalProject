@@ -25,7 +25,7 @@ public class story_select extends AppCompatActivity {
         setContentView(R.layout.story_select);
 
         helper = new DAOEvents(this);
-        storyList = helper.getEditList("ASC"); // Ascending
+        storyList = helper.getInitialList("ASC"); // Ascending
 
         recyclerEvents = findViewById(R.id.listView);
         recyclerEvents.setHasFixedSize(true);

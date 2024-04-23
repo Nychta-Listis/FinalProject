@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class eventEdit extends AppCompatActivity {
 
@@ -59,11 +60,21 @@ public class eventEdit extends AppCompatActivity {
         editID.setText(event.getId());
         editDescription.setText(event.getText());
 
-//        EventData choice1 = helper.searchEvent(event.getChoice1id());
-//        EventData choice2 = helper.searchEvent(event.getChoice2id());
+        EventData choice1 = helper.searchEvent(event.getChoice1id());
+        EventData choice2 = helper.searchEvent(event.getChoice2id());
 
-//        choice1ID.setText(choice1.getId());
-//        choice2ID.setText(choice2.getId());
+        if (choice1.getIdDB().equals(-5L)) {
+            choice1ID.setText("Choice 1 ID");
+        } else {
+            choice1ID.setText(choice1.getId());
+        }
+        if (choice2.getIdDB().equals(-5L)) {
+            choice2ID.setText("Choice 2 ID");
+        } else {
+            choice2ID.setText(choice2.getId());
+        }
+
+
 
         choice1Text.setText(event.getChoice1txt());
         choice2Text.setText(event.getChoice2txt());
@@ -90,7 +101,7 @@ public class eventEdit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Test if Id is repeated/already exists
-                if (event.getIdDB()==-1L) {
+                if (event.getIdDB()==-1L) { // New event
 
                     event.setName(String.valueOf(editName.getText()));
                     event.setText(String.valueOf(editDescription.getText()));
@@ -102,20 +113,31 @@ public class eventEdit extends AppCompatActivity {
                     event.setChoice1txt(String.valueOf(choice1Text.getText()));
                     event.setChoice2txt(String.valueOf(choice2Text.getText()));
 
-                    helper.insertEvent(event);
+                    Intent i = new Intent();
+                    i.putExtra("Event",event);
+                    setResult(RESULT_OK, i);
+                    finish();
+
+//                    helper.insertEvent(event);
+                } else {
+                    if (helper.IDexists(event.getId(),event.getIdDB())) {
+                    Toast.makeText(eventEdit.this, "eventID already exists", Toast.LENGTH_SHORT).show();
+                    return;
+                    } else {
+                        event.setName(String.valueOf(editName.getText()));
+                        event.setText(String.valueOf(editDescription.getText()));
+                        event.setId(String.valueOf(editID.getText()));
+                        if (start_check.isChecked()) {Checked = "1";} else {Checked = "0";}
+                        event.setIsInitial(Checked);
+                        event.setChoice1txt(String.valueOf(choice1Text.getText()));
+                        event.setChoice2txt(String.valueOf(choice2Text.getText()));
+
+                        Intent i = new Intent();
+                        i.putExtra("Event",event);
+                        setResult(RESULT_OK, i);
+                        finish();
+                    }
                 }
-                event.setName(String.valueOf(editName.getText()));
-
-                event.setId(String.valueOf(editID.getText()));
-                if (start_check.isChecked()) {Checked = "1";} else {Checked = "0";}
-                event.setIsInitial(Checked);
-                event.setChoice1txt(String.valueOf(choice1Text.getText()));
-                event.setChoice2txt(String.valueOf(choice2Text.getText()));
-
-                Intent i = new Intent();
-                i.putExtra("Event",event);
-                setResult(RESULT_OK, i);
-                finish();
             }
         });
 
@@ -132,11 +154,19 @@ public class eventEdit extends AppCompatActivity {
                             if (action == 1) {
                                 choice1ID = findViewById(R.id.choice1ID);
                                 event.setChoice1id(EditEvent.getIdDB());
-                                choice1ID.setText(EditEvent.getId());
+                                if (EditEvent.getIdDB().equals(-5L)) {
+                                    choice1ID.setText("Choice 1 ID");
+                                } else {
+                                    choice1ID.setText(EditEvent.getId());
+                                }
                             } else if (action == 2) {
                                 choice2ID = findViewById(R.id.choice2ID);
                                 event.setChoice2id(EditEvent.getIdDB());
-                                choice2ID.setText(EditEvent.getId());
+                                if (EditEvent.getIdDB().equals(-5L)) {
+                                    choice2ID.setText("Choice 2 ID");
+                                } else {
+                                    choice2ID.setText(EditEvent.getId());
+                                }
                             }
                         }
                     }
