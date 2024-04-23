@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".eventEdit">
 
     <EditText
         android:id="@+id/editName"
@@ -54,12 +55,11 @@
         app:layout_constraintTop_toBottomOf="@+id/editName"
         app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
+    <Button
         android:id="@+id/choice2ID"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:hint="Choice 2 ID"
-        android:singleLine="true"
+        android:text="Choice 2 ID"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
@@ -67,11 +67,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.812" />
 
-    <EditText
+    <Button
         android:id="@+id/choice1ID"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:hint="Choice 1 ID"
+        android:text="Choice 1 ID"
         android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
