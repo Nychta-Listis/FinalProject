@@ -11,10 +11,10 @@ import androidx.fragment.app.Fragment;
 
 public class Fragment2 extends Fragment {
 
-    @Override
+//    @Override
     public View OnCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View Fragment2View = inflater.inflate(R.layout.fragment_1, container,false);
+        View Fragment2View = inflater.inflate(R.layout.event_branching_path, container,false);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("info", Context.MODE_PRIVATE);
         String name = sharedPreferences.getString("name","");

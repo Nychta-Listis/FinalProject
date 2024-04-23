@@ -26,7 +26,7 @@ public class NameAdapter extends RecyclerView.Adapter<NameAdapter.EventViewHolde
     @NonNull
     @Override
     public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_name_cell, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.story_cell, parent, false);
         return new EventViewHolder(v);
     }
 

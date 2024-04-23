@@ -225,7 +225,6 @@ public class DAOEvents  extends SQLiteOpenHelper {
 
     public void editEvent (EventData e){
         ContentValues values = new ContentValues();
-        values.put("id",e.getIdDB());
         values.put("eventId",e.getId());
         values.put("name",e.getName());
         values.put("text",e.getText());
@@ -248,7 +247,7 @@ public class DAOEvents  extends SQLiteOpenHelper {
         editEvent(e);
     }
 
-    public void deleteContact (EventData e){
+    public void deleteEvent (EventData e){
         SQLiteDatabase db = getWritableDatabase();
         String[] idToDelete = {e.getIdDB().toString()};
         db.delete(TABLE,"id=?",idToDelete);

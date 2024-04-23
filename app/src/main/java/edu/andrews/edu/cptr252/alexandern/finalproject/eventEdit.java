@@ -59,11 +59,11 @@ public class eventEdit extends AppCompatActivity {
         editID.setText(event.getId());
         editDescription.setText(event.getText());
 
-        EventData choice1 = helper.searchEvent(event.getChoice1id());
-        EventData choice2 = helper.searchEvent(event.getChoice2id());
+//        EventData choice1 = helper.searchEvent(event.getChoice1id());
+//        EventData choice2 = helper.searchEvent(event.getChoice2id());
 
-        choice1ID.setText(choice1.getId());
-        choice2ID.setText(choice2.getId());
+//        choice1ID.setText(choice1.getId());
+//        choice2ID.setText(choice2.getId());
 
         choice1Text.setText(event.getChoice1txt());
         choice2Text.setText(event.getChoice2txt());
@@ -71,7 +71,7 @@ public class eventEdit extends AppCompatActivity {
         choice1ID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(eventEdit.this, eventSelect.class);
+                Intent intent1 = new Intent(eventEdit.this, eventSelect2.class);
                 action = 1;
                 eventSelectLauncher.launch(intent1);
             }
@@ -80,7 +80,7 @@ public class eventEdit extends AppCompatActivity {
         choice2ID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(eventEdit.this, eventSelect.class);
+                Intent intent1 = new Intent(eventEdit.this, eventSelect2.class);
                 action = 2;
                 eventSelectLauncher.launch(intent1);
             }
@@ -111,6 +111,11 @@ public class eventEdit extends AppCompatActivity {
                 event.setIsInitial(Checked);
                 event.setChoice1txt(String.valueOf(choice1Text.getText()));
                 event.setChoice2txt(String.valueOf(choice2Text.getText()));
+
+                Intent i = new Intent();
+                i.putExtra("Event",event);
+                setResult(RESULT_OK, i);
+                finish();
             }
         });
 
@@ -123,7 +128,7 @@ public class eventEdit extends AppCompatActivity {
                     if (result.getResultCode() == RESULT_OK) {
                         Intent data = result.getData();
                         if (data != null) {
-                            EventData EditEvent = data.getParcelableExtra("contact");
+                            EventData EditEvent = data.getParcelableExtra("Event");
                             if (action == 1) {
                                 choice1ID = findViewById(R.id.choice1ID);
                                 event.setChoice1id(EditEvent.getIdDB());
@@ -137,7 +142,5 @@ public class eventEdit extends AppCompatActivity {
                     }
                 }
             }
-
-
     );
 }

@@ -19,14 +19,13 @@ public class story_select extends AppCompatActivity {
     private DAOEvents helper;
     private List<EventData> storyList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.story_select);
 
         helper = new DAOEvents(this);
-        storyList = helper.getInitialList("ASC"); // Ascending
+        storyList = helper.getEditList("ASC"); // Ascending
 
         recyclerEvents = findViewById(R.id.listView);
         recyclerEvents.setHasFixedSize(true);

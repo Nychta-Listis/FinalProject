@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     sharedEditor.putString("name",nametemp);
                     sharedEditor.apply();
 
-                    Intent intent = new Intent(MainActivity.this, story_select.class);
+                    Intent intent = new Intent(MainActivity.this, eventSelect.class);
                     startActivity(intent);
                 }
             }

@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -23,10 +21,10 @@ public class Fragment1 extends Fragment {
 
     private DAOEvents helper;
 
-    @Override
+//    @Override
     public View OnCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View Fragment1View = inflater.inflate(R.layout.fragment_1, container,false);
+        View Fragment1View = inflater.inflate(R.layout.event_branching_path, container,false);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("info", Context.MODE_PRIVATE);
         String name = sharedPreferences.getString("name","");
@@ -61,7 +59,7 @@ public class Fragment1 extends Fragment {
                             // Update all variables
                         } else {
                             fragment2.setArguments(bundle);
-                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                             FragmentTransaction transaction = fragmentManager.beginTransaction();
                             transaction.replace(R.id.fragment, fragment2);
                             transaction.commit();

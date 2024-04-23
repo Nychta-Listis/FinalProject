@@ -13,13 +13,13 @@ public class EventData implements Parcelable {
     private String choice1txt="";
     private Long choice1id=-2L;
     private String choice2txt="";
-    private Long choice2id;
+    private Long choice2id=-5L;
     private String isInitial="0";
     private Long idDB = -1L;
 
     public EventData(){}
     private EventData(Parcel source) {
-        String[] data = new String[8];
+        String[] data = new String[9];
         source.readStringArray(data);
         setId(data[0]);
         setName(data[1]);
@@ -29,6 +29,7 @@ public class EventData implements Parcelable {
         setChoice2txt(data[5]);
         setChoice2id(Long.parseLong(data[6]));
         setIsInitial(data[7]);
+        setIdDB(Long.parseLong(data[8]));
     }
 
     @Override
@@ -39,7 +40,7 @@ public class EventData implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeStringArray(new String[]{
-                getId(),getName(),getText(),getChoice1txt(),String.valueOf(getChoice1id()),getChoice2txt(),String.valueOf(getChoice2id()),getIsInitial()
+                getId(),getName(),getText(),getChoice1txt(),String.valueOf(getChoice1id()),getChoice2txt(),String.valueOf(getChoice2id()),getIsInitial(),String.valueOf(getIdDB())
         });
     }
 
