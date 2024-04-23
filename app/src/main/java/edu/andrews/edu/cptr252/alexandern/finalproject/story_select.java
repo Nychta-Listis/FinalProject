@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class story_select extends AppCompatActivity {
     private NameAdapter adapter;
     private DAOEvents helper;
     private List<EventData> storyList;
+    private Button returnBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class story_select extends AppCompatActivity {
 
         helper = new DAOEvents(this);
         storyList = helper.getInitialList("ASC"); // Ascending
+        returnBtn = findViewById(R.id.return_button);
 
         recyclerEvents = findViewById(R.id.listView);
         recyclerEvents.setHasFixedSize(true);
@@ -46,5 +49,13 @@ public class story_select extends AppCompatActivity {
                     }
                 }
         ));
+
+        returnBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent menu = new Intent(story_select.this, MainActivity.class);
+                startActivity(menu);
+            }
+        });
     }
 }

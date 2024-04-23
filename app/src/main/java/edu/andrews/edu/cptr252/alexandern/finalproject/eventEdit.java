@@ -102,25 +102,27 @@ public class eventEdit extends AppCompatActivity {
             public void onClick(View v) {
                 // Test if Id is repeated/already exists
                 if (event.getIdDB()==-1L) { // New event
+                    if (!helper.IDexists(String.valueOf(editID.getText()))) {
+                        event.setName(String.valueOf(editName.getText()));
+                        event.setText(String.valueOf(editDescription.getText()));
+                        event.setId(String.valueOf(editID.getText()));
 
-                    event.setName(String.valueOf(editName.getText()));
-                    event.setText(String.valueOf(editDescription.getText()));
-                    event.setId(String.valueOf(editID.getText()));
+                        if (start_check.isChecked()) {Checked = "1";} else {Checked = "0";}
+                            event.setIsInitial(Checked);
 
-                    if (start_check.isChecked()) {Checked = "1";} else {Checked = "0";}
-                    event.setIsInitial(Checked);
+                        event.setChoice1txt(String.valueOf(choice1Text.getText()));
+                        event.setChoice2txt(String.valueOf(choice2Text.getText()));
 
-                    event.setChoice1txt(String.valueOf(choice1Text.getText()));
-                    event.setChoice2txt(String.valueOf(choice2Text.getText()));
-
-                    Intent i = new Intent();
-                    i.putExtra("Event",event);
-                    setResult(RESULT_OK, i);
-                    finish();
-
-//                    helper.insertEvent(event);
+                        Intent i = new Intent();
+                        i.putExtra("Event",event);
+                        setResult(RESULT_OK, i);
+                        finish();
+                    } else {
+                        Toast.makeText(eventEdit.this, "eventID already exists", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 } else {
-                    if (helper.IDexists(event.getId(),event.getIdDB())) {
+                    if (helper.IDagainst(String.valueOf(editID.getText()),event.getIdDB())) {
                     Toast.makeText(eventEdit.this, "eventID already exists", Toast.LENGTH_SHORT).show();
                     return;
                     } else {

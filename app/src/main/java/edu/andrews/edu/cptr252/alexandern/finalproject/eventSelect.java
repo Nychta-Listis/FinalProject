@@ -73,7 +73,7 @@ public class eventSelect extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent menu = new Intent(eventSelect.this, MainActivity.class);
-                eventLauncher.launch(menu);
+                startActivity(menu);
             }
         });
 

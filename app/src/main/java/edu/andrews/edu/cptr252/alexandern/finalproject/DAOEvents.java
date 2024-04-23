@@ -22,7 +22,7 @@ public class DAOEvents  extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE "+ TABLE +
                 " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                " eventId TEXT NOT NULL, " +
+                " eventId TEXT, " +
                 " name TEXT, " +
                 " text TEXT, " +
                 " choice1txt TEXT, " +
@@ -174,10 +174,9 @@ public class DAOEvents  extends SQLiteOpenHelper {
             return e;
         }
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+TABLE+
-                " where id = ?", new String[] {DBID.toString()});
-        if (cursor!= null) {
+                " ORDER BY eventId ASC;", null);
 
-            int IdIndex = cursor.getColumnIndex("id");
+        while(cursor.moveToNext()){
             int eventIdIndex = cursor.getColumnIndex("eventId");
             int nameIndex = cursor.getColumnIndex("name");
             int textIndex = cursor.getColumnIndex("text");
@@ -187,7 +186,7 @@ public class DAOEvents  extends SQLiteOpenHelper {
             int choice2idIndex = cursor.getColumnIndex("choice2id");
             int isInitialIndex = cursor.getColumnIndex("isInitial");
 
-            e.setIdDB(cursor.getLong(IdIndex));
+            e.setIdDB(DBID);
             e.setId(cursor.getString(eventIdIndex));
             e.setName(cursor.getString(nameIndex));
             e.setText(cursor.getString(textIndex));
@@ -196,25 +195,68 @@ public class DAOEvents  extends SQLiteOpenHelper {
             e.setChoice2txt(cursor.getString(choice2txtIndex));
             e.setChoice2id(cursor.getLong(choice2idIndex));
             e.setIsInitial(cursor.getString(isInitialIndex));
-        } else {
-            e.setName("missingEvent");
-            e.setId("missingEvent");
-            e.setIdDB(-4L);
+
+            if (e.getIdDB().equals(DBID)) {
+                cursor.close();
+                return e;
+            }
+
         }
+        e.setName("missingEvent");
+        e.setId("missingEvent");
+        e.setIdDB(-4L);
         cursor.close();
         return e;
+    }
+
+    public Boolean IDagainst(String ID, Long IdDB) {
+        try{
+            Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+TABLE+
+                    " ORDER BY eventId ASC;", null);
+            EventData e = new EventData();
+            if (cursor.getCount() != 0) {
+                while (cursor.moveToNext()) {
+                    int IdIndex = cursor.getColumnIndex("id");
+                    int eventIdIndex = cursor.getColumnIndex("eventId");
+                    if ((IdDB != cursor.getLong(IdIndex)) && (cursor.getString(eventIdIndex).equals(ID))) {
+                        cursor.close();
+                        return true;
+                    } else {
+                        continue;}
+                    }
+            }
+            cursor.close();
+            return false;
+        } catch(Exception ex) {
+            return false;
+        }
+
 
     }
 
-    public Boolean IDexists(String ID, Long IdDB) {
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+TABLE+
-                " where eventId = ?", new String[] {ID});
-        EventData e = new EventData();
-        if (cursor != null && IdDB != cursor.getLong(cursor.getColumnIndex("id"))) {
-            return true;
-        } else {
+    public Boolean IDexists(String ID) {
+        try{
+            Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+TABLE+
+                    " ORDER BY eventId ASC;", null);
+            EventData e = new EventData();
+            if (cursor.getCount() != 0) {
+                while (cursor.moveToNext()) {
+                    int IdIndex = cursor.getColumnIndex("id");
+                    int eventIdIndex = cursor.getColumnIndex("eventId");
+                    if (cursor.getString(eventIdIndex).equals(ID)) {
+                        cursor.close();
+                        return true;
+                    } else {
+                        continue;}
+                }
+            }
+            cursor.close();
+            return false;
+        } catch(Exception ex) {
             return false;
         }
+
+
     }
 
     public void insertEvent (EventData e){
