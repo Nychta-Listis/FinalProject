@@ -90,6 +90,9 @@ public class eventSelect extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which){
                             case 0: // Enter Event
+                                Intent intent = new Intent(eventSelect.this, StoryEvent.class);
+                                intent.putExtra("destEvent", event);
+                                startActivity(intent);
                                 break;
                             case 1: // Edit Event
                                 Intent intent1 = new Intent(eventSelect.this, eventEdit.class);

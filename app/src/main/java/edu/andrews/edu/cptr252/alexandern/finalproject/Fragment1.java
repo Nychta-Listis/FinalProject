@@ -14,68 +14,42 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class Fragment1 extends Fragment {
-
-    private Button choiceBtn;
-    private Fragment1 fragment1;
-    private Fragment2 fragment2;
-
-    private DAOEvents helper;
-
 //    @Override
     public View OnCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View Fragment1View = inflater.inflate(R.layout.event_branching_path, container,false);
+        View Fragment1View = inflater.inflate(R.layout.event_stepping_stone, container,false);
+
+        DAOEvents helper = new DAOEvents(getContext());
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("info", Context.MODE_PRIVATE);
         String name = sharedPreferences.getString("name","");
 
         Bundle bundle = this.getArguments();
-        Long idS = bundle.getLong("idD");
+        EventData sourEvent = bundle.getParcelable("sourEvent");
+        EventData destEvent = bundle.getParcelable("destEvent");
         Boolean isFirst = bundle.getBoolean("isFirst");
 
-        EventData currentEvent = helper.searchEvent(idS);
+        EventData currentEvent = destEvent;
 
 
+        TextView eventText = getActivity().findViewById(R.id.event_text);
+        eventText.setText("currentEvent.getText()");
+        Button choiceBtn = getActivity().findViewById(R.id.next_button);
+        choiceBtn.setText(currentEvent.getChoice1txt());
+
+        EventData choice1 = helper.searchEvent(currentEvent.getChoice1id());
 
         choiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Long idD = currentEvent.getChoice1id();
-                if (idD == -3L) {
-                    missingEvent(idS, isFirst);
-                } else if (idD == -2L) {
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent);
-                } else {
-                    EventData newEvent = helper.searchEvent(idD);
-                    if (newEvent.getIdDB().equals(-4L)) {
-                        missingEvent(idS, isFirst);
-                    } else {
-                        Bundle bundle = new Bundle();
-                        bundle.putLong("idD",idD);
-                        bundle.putBoolean("isFirst",isFirst);
-
-                        if (newEvent.getChoice2id().equals(-5L)) {
-                            // Update all variables
-                        } else {
-                            fragment2.setArguments(bundle);
-                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                            FragmentTransaction transaction = fragmentManager.beginTransaction();
-                            transaction.replace(R.id.fragment, fragment2);
-                            transaction.commit();
-                        }
-                    }
-                }
+                Bundle result = new Bundle();
+                bundle.putParcelable("sourEvent",currentEvent);
+                bundle.putParcelable("destEvent",choice1);
+                bundle.putBoolean("isFirst",true);
+                getParentFragmentManager().setFragmentResult("requestKey", result);
             }
         });
         // Inflate the layout for this fragment
         return Fragment1View;
-    }
-    void missingEvent(Long idS, Boolean isFirst) {
-        // Say event not yet defined, ask if want to create an event, or redefine destination of this choice
-        Long newId = 0L; //result from either creating event or redefining destination
-
-        EventData sourceEvent = helper.searchEvent(idS);
-        helper.editChoiceID(sourceEvent,newId,isFirst);// After editing, make sure returns to current event.
     }
 }
