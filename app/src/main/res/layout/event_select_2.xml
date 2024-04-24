@@ -31,18 +31,6 @@
         tools:listitem="@layout/event_full_cell" />
 
     <Button
-        android:id="@+id/return_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Return"
-        app:layout_constraintBottom_toBottomOf="@+id/select_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toEndOf="@+id/select_title"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/clear_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
