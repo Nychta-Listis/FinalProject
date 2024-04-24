@@ -43,6 +43,7 @@ public class StoryEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_story_event);
+        helper = new DAOEvents(this);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null){
@@ -61,8 +62,8 @@ public class StoryEvent extends AppCompatActivity {
                     sourEvent = bundle.getParcelable("sourEvent");
                     destEvent = bundle.getParcelable("destEvent");
                     Boolean isFirst = bundle.getBoolean("isFirst");
-                    first = isFirst;
                     prepareEvent(sourEvent, destEvent, isFirst);
+                    first = isFirst;
                 }
             });
             prepareEvent(Menu, destEvent, true);
@@ -97,6 +98,7 @@ public class StoryEvent extends AppCompatActivity {
                 fragment1.setArguments(bundle);
                 transaction.replace(R.id.fragment, fragment1);
                 transaction.commit();
+                first = isFirst;
                 eventName.setText(destEvent.getName().replaceAll(regex, name));
 
             } else {
@@ -126,6 +128,7 @@ public class StoryEvent extends AppCompatActivity {
                                 break;
                             case 1: // New Event
                                 Intent intent1 = new Intent(StoryEvent.this, eventEdit.class);
+                                intent1.putExtra("Event", new EventData());
                                 action = REQUEST_NEW;
                                 eventLauncher.launch(intent1);
                                 break;
@@ -147,22 +150,20 @@ public class StoryEvent extends AppCompatActivity {
                                 helper.insertEvent(inevent);
                                 inevent = helper.retrieveFromID(inevent);
                                 if (first) {
-                                    destEvent.setChoice1id(inevent.getIdDB());
+                                    sourEvent.setChoice1id(inevent.getIdDB());
                                 } else {
-                                    destEvent.setChoice2id(inevent.getIdDB());
+                                    sourEvent.setChoice2id(inevent.getIdDB());
                                 }
-                                helper.editEvent(destEvent);
-                                prepareEvent(sourEvent,destEvent,first);
+                                helper.editEvent(sourEvent);
+                                prepareEvent(sourEvent,sourEvent,first);
                             } else if (action == REQUEST_SELECT) {
                                 if (first) {
-                                    destEvent.setChoice1id(inevent.getIdDB());
+                                    sourEvent.setChoice1id(inevent.getIdDB());
                                 } else {
-                                    destEvent.setChoice2id(inevent.getIdDB());
+                                    sourEvent.setChoice2id(inevent.getIdDB());
                                 }
-                                if (destEvent.getIdDB() > 0L) {
-                                    helper.editEvent(destEvent);
-                                    prepareEvent(sourEvent,destEvent,first);
-                                }
+                                helper.editEvent(sourEvent);
+                                prepareEvent(sourEvent,sourEvent,first);
                             }
                         }
                     }
