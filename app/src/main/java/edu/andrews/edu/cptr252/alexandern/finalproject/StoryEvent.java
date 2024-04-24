@@ -55,8 +55,6 @@ public class StoryEvent extends AppCompatActivity {
             fragmentManager = getSupportFragmentManager();
             eventName = findViewById(R.id.event_name);
             returnBtn = findViewById(R.id.return_button);
-            fragment1 = new Fragment1();
-            fragment2 = new Fragment2();
             fragmentManager.setFragmentResultListener("requestKey", this, new FragmentResultListener() {
                 @Override
                 public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
@@ -88,24 +86,26 @@ public class StoryEvent extends AppCompatActivity {
             Intent intent = new Intent(StoryEvent.this, MainActivity.class);
             startActivity(intent);
         } else {
+            String regex = "\\(heroName\\)";
             Bundle bundle = new Bundle();
             bundle.putParcelable("sourEvent",sourEvent);
             bundle.putParcelable("destEvent",destEvent);
             bundle.putBoolean("isFirst",isFirst);
             if (destEvent.getChoice2id().equals(-5L)) {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
+                fragment1 = new Fragment1();
                 fragment1.setArguments(bundle);
                 transaction.replace(R.id.fragment, fragment1);
                 transaction.commit();
-                eventName.setText(destEvent.getName().replaceAll("(heroName)", name));
+                eventName.setText(destEvent.getName().replaceAll(regex, name));
 
             } else {
-                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragment2 = new Fragment2();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 fragment2.setArguments(bundle);
                 transaction.replace(R.id.fragment, fragment2);
                 transaction.commit();
-                eventName.setText(destEvent.getName().replaceAll("(heroName)", name));
+                eventName.setText(destEvent.getName().replaceAll(regex, name));
             }
         }
     }

@@ -21,8 +21,8 @@ public class Fragment2 extends Fragment {
 
         DAOEvents helper = new DAOEvents(getContext());
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("info", Context.MODE_PRIVATE);
-        String name = sharedPreferences.getString("name","");
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("name", Context.MODE_PRIVATE);
+        String name = sharedPreferences.getString("name","default");
 
         Bundle bundle = this.getArguments();
         EventData sourEvent = bundle.getParcelable("sourEvent");
@@ -31,12 +31,13 @@ public class Fragment2 extends Fragment {
 
         EventData currentEvent = destEvent;
 
+        String regex = "\\(heroName\\)";
         TextView eventText = Fragment2View.findViewById(R.id.event_text);
-        eventText.setText(currentEvent.getText().replaceAll("(heroName)", name));
+        eventText.setText(currentEvent.getText().replaceAll(regex, name));
         Button choice1Btn = Fragment2View.findViewById(R.id.choice_1);
-        choice1Btn.setText(currentEvent.getChoice1txt().replaceAll("(heroName)", name));
+        choice1Btn.setText(currentEvent.getChoice1txt().replaceAll(regex, name));
         Button choice2Btn = Fragment2View.findViewById(R.id.choice_2);
-        choice2Btn.setText(currentEvent.getChoice2txt().replaceAll("(heroName)", name));
+        choice2Btn.setText(currentEvent.getChoice2txt().replaceAll(regex, name));
 
         choice1Btn.setOnClickListener(new View.OnClickListener() {
             @Override
