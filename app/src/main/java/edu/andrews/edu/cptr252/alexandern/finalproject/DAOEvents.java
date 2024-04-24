@@ -163,12 +163,12 @@ public class DAOEvents  extends SQLiteOpenHelper {
             e.setIdDB(-2L);
             return e;
         } else if (DBID == -3L) {
-            e.setName("emptyEvent");
+            e.setName("Empty Event");
             e.setId("emptyEvent");
             e.setIdDB(-3L);
             return e;
         } else if (DBID == -5L) {
-            e.setName("noEvent");
+            e.setName("No Event");
             e.setId("noEvent");
             e.setIdDB(-5L);
             return e;
@@ -177,6 +177,7 @@ public class DAOEvents  extends SQLiteOpenHelper {
                 " ORDER BY eventId ASC;", null);
 
         while(cursor.moveToNext()){
+            int IdIndex = cursor.getColumnIndex("id");
             int eventIdIndex = cursor.getColumnIndex("eventId");
             int nameIndex = cursor.getColumnIndex("name");
             int textIndex = cursor.getColumnIndex("text");
@@ -186,7 +187,7 @@ public class DAOEvents  extends SQLiteOpenHelper {
             int choice2idIndex = cursor.getColumnIndex("choice2id");
             int isInitialIndex = cursor.getColumnIndex("isInitial");
 
-            e.setIdDB(DBID);
+            e.setIdDB(cursor.getLong(IdIndex));
             e.setId(cursor.getString(eventIdIndex));
             e.setName(cursor.getString(nameIndex));
             e.setText(cursor.getString(textIndex));
@@ -246,8 +247,7 @@ public class DAOEvents  extends SQLiteOpenHelper {
                     if (cursor.getString(eventIdIndex).equals(ID)) {
                         cursor.close();
                         return true;
-                    } else {
-                        continue;}
+                    }
                 }
             }
             cursor.close();
@@ -300,5 +300,45 @@ public class DAOEvents  extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         String[] idToDelete = {e.getIdDB().toString()};
         db.delete(TABLE,"id=?",idToDelete);
+    }
+
+    public EventData retrieveFromID (EventData ev){
+        EventData e = new EventData();
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+TABLE+
+                " ORDER BY eventId ASC;", null);
+
+        while(cursor.moveToNext()){
+            int IdIndex = cursor.getColumnIndex("id");
+            int eventIdIndex = cursor.getColumnIndex("eventId");
+            int nameIndex = cursor.getColumnIndex("name");
+            int textIndex = cursor.getColumnIndex("text");
+            int choice1txtIndex = cursor.getColumnIndex("choice1txt");
+            int choice1idIndex = cursor.getColumnIndex("choice1id");
+            int choice2txtIndex = cursor.getColumnIndex("choice2txt");
+            int choice2idIndex = cursor.getColumnIndex("choice2id");
+            int isInitialIndex = cursor.getColumnIndex("isInitial");
+
+            e.setIdDB(cursor.getLong(IdIndex));
+            e.setId(cursor.getString(eventIdIndex));
+            e.setName(cursor.getString(nameIndex));
+            e.setText(cursor.getString(textIndex));
+            e.setChoice1txt(cursor.getString(choice1txtIndex));
+            e.setChoice1id(cursor.getLong(choice1idIndex));
+            e.setChoice2txt(cursor.getString(choice2txtIndex));
+            e.setChoice2id(cursor.getLong(choice2idIndex));
+            e.setIsInitial(cursor.getString(isInitialIndex));
+
+            if (e.getId().equals(ev.getId())) {
+                cursor.close();
+                return e;
+            }
+
+        }
+        e.setName("missingEvent");
+        e.setId("missingEvent");
+        e.setIdDB(-4L);
+        cursor.close();
+        return e;
+
     }
 }

@@ -1,18 +1,27 @@
 package edu.andrews.edu.cptr252.alexandern.finalproject;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StoryEvent extends AppCompatActivity {
 
@@ -21,6 +30,14 @@ public class StoryEvent extends AppCompatActivity {
     private DAOEvents helper;
     private TextView eventName;
     private Button returnBtn;
+    private FragmentManager fragmentManager;
+    private final int REQUEST_NEW = 1;
+    private final int REQUEST_SELECT = 2;
+    private int action;
+    private Boolean first;
+    private EventData sourEvent;
+    private EventData destEvent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,27 +46,27 @@ public class StoryEvent extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null){
-            EventData destEvent = extras.getParcelable("destEvent");
+            destEvent = extras.getParcelable("destEvent");
 
             EventData Menu = new EventData();
             Menu.setName("Main Menu");
             Menu.setId("mainMenu");
             Menu.setIdDB(-2L);
-            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager = getSupportFragmentManager();
             eventName = findViewById(R.id.event_name);
             returnBtn = findViewById(R.id.return_button);
+            fragment1 = new Fragment1();
+            fragment2 = new Fragment2();
             fragmentManager.setFragmentResultListener("requestKey", this, new FragmentResultListener() {
                 @Override
                 public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
-                    EventData sourEvent = bundle.getParcelable("sourEvent");
-                    EventData destEvent = bundle.getParcelable("destEvent");
+                    sourEvent = bundle.getParcelable("sourEvent");
+                    destEvent = bundle.getParcelable("destEvent");
                     Boolean isFirst = bundle.getBoolean("isFirst");
-                    eventName.setText(destEvent.getName());
+                    first = isFirst;
                     prepareEvent(sourEvent, destEvent, isFirst);
-
                 }
             });
-            eventName.setText(destEvent.getName());
             prepareEvent(Menu, destEvent, true);
 
         }
@@ -62,8 +79,11 @@ public class StoryEvent extends AppCompatActivity {
         });
     }
     void prepareEvent(EventData sourEvent, EventData destEvent, Boolean isFirst) {
-        if (destEvent.getIdDB().equals(-3L) || destEvent.getIdDB().equals(-4L)) {
-            missingEvent(destEvent, isFirst);
+        SharedPreferences sharedPreferences = getSharedPreferences("info", Context.MODE_PRIVATE);
+        String name = sharedPreferences.getString("name","");
+
+        if (destEvent.getIdDB().equals(-3L) || destEvent.getIdDB().equals(-4L) || destEvent.getIdDB().equals(-5L)) {
+            openOptions();
         } else if (destEvent.getIdDB() == -2L) {
             Intent intent = new Intent(StoryEvent.this, MainActivity.class);
             startActivity(intent);
@@ -73,11 +93,11 @@ public class StoryEvent extends AppCompatActivity {
             bundle.putParcelable("destEvent",destEvent);
             bundle.putBoolean("isFirst",isFirst);
             if (destEvent.getChoice2id().equals(-5L)) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 fragment1.setArguments(bundle);
                 transaction.replace(R.id.fragment, fragment1);
                 transaction.commit();
+                eventName.setText(destEvent.getName().replaceAll("(heroName)", name));
 
             } else {
                 FragmentManager fragmentManager = getSupportFragmentManager();
@@ -85,15 +105,70 @@ public class StoryEvent extends AppCompatActivity {
                 fragment2.setArguments(bundle);
                 transaction.replace(R.id.fragment, fragment2);
                 transaction.commit();
+                eventName.setText(destEvent.getName().replaceAll("(heroName)", name));
             }
         }
     }
-    void missingEvent(EventData sourEvent, Boolean isFirst) {
-        // Say event not yet defined, ask if want to create an event, or redefine destination of this choice
-        Long newId = 0L; //result from either creating event or redefining destination
 
-        helper.editChoiceID(sourEvent,newId,isFirst);// After editing, make sure returns to current event.
+    private void openOptions(){
+//        Toast.makeText(this, "Contact: ", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Event Undefined");
+        builder.setItems(new CharSequence[]{"Select", "New"},
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case 0: // Select Event
+                                Intent intent = new Intent(StoryEvent.this, eventSelect2.class);
+                                action = REQUEST_SELECT;
+                                eventLauncher.launch(intent);
+                                break;
+                            case 1: // New Event
+                                Intent intent1 = new Intent(StoryEvent.this, eventEdit.class);
+                                action = REQUEST_NEW;
+                                eventLauncher.launch(intent1);
+                                break;
+                        }
+                    }
+                });
+        builder.create().show();
     }
+
+    private final ActivityResultLauncher<Intent> eventLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            EventData inevent = data.getParcelableExtra("Event");
+                            if (action == REQUEST_NEW) {
+                                helper.insertEvent(inevent);
+                                inevent = helper.retrieveFromID(inevent);
+                                if (first) {
+                                    destEvent.setChoice1id(inevent.getIdDB());
+                                } else {
+                                    destEvent.setChoice2id(inevent.getIdDB());
+                                }
+                                helper.editEvent(destEvent);
+                                prepareEvent(sourEvent,destEvent,first);
+                            } else if (action == REQUEST_SELECT) {
+                                if (first) {
+                                    destEvent.setChoice1id(inevent.getIdDB());
+                                } else {
+                                    destEvent.setChoice2id(inevent.getIdDB());
+                                }
+                                if (destEvent.getIdDB() > 0L) {
+                                    helper.editEvent(destEvent);
+                                    prepareEvent(sourEvent,destEvent,first);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+    );
 
 
 }
