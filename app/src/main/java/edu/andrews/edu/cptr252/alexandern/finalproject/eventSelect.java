@@ -38,6 +38,13 @@ public class eventSelect extends AppCompatActivity {
 
         helper = new DAOEvents(this);
         eventList = helper.getEditList("ASC"); // Ascending
+
+        if (eventList.size() == 0) {
+            CreateDefaultStory creator = new CreateDefaultStory(this);
+            creator.createStory();
+        }
+        eventList = helper.getEditList("ASC"); // Ascending
+
         newEventBtn = findViewById(R.id.new_event);
         returnBtn = findViewById(R.id.return_button);
 
@@ -49,6 +56,8 @@ public class eventSelect extends AppCompatActivity {
 
         adapter = new FullAdapter(eventList);
         recyclerEvents.setAdapter(adapter);
+
+
 
         recyclerEvents.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(),
                 new RecyclerItemClickListener.OnItemClickListener() {

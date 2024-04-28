@@ -3,6 +3,7 @@ package edu.andrews.edu.cptr252.alexandern.finalproject;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,8 @@ public class Fragment2 extends Fragment {
         choice1Btn.setText(currentEvent.getChoice1txt().replaceAll(regex, name));
         Button choice2Btn = Fragment2View.findViewById(R.id.choice_2);
         choice2Btn.setText(currentEvent.getChoice2txt().replaceAll(regex, name));
+
+        eventText.setMovementMethod(new ScrollingMovementMethod());
 
         choice1Btn.setOnClickListener(new View.OnClickListener() {
             @Override

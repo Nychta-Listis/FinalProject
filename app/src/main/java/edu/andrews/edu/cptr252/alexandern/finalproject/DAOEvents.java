@@ -307,6 +307,25 @@ public class DAOEvents  extends SQLiteOpenHelper {
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+TABLE+
                 " ORDER BY eventId ASC;", null);
 
+        String EvID = ev.getId();
+
+        if (EvID.equals("mainMenu")) {
+            e.setName("Main Menu");
+            e.setId("mainMenu");
+            e.setIdDB(-2L);
+            return e;
+        } else if (EvID.equals("emptyEvent")) {
+            e.setName("Empty Event");
+            e.setId("emptyEvent");
+            e.setIdDB(-3L);
+            return e;
+        } else if (EvID.equals("noEvent")) {
+            e.setName("No Event");
+            e.setId("noEvent");
+            e.setIdDB(-5L);
+            return e;
+        }
+
         while(cursor.moveToNext()){
             int IdIndex = cursor.getColumnIndex("id");
             int eventIdIndex = cursor.getColumnIndex("eventId");
