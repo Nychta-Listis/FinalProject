@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".eventSelect">
+    tools:context=".eventSelect"
+    android:background="#C7E1C9">
 
     <TextView
         android:id="@+id/select_title"
