@@ -353,6 +353,20 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
+                "Looking around","8",//Title, Id
+                "You pace around the kitchen, looking for anything there that shouldn’t be—or anything that should be there but isn’t, but the only difference seems to be the lack of staff—other than yourself, anyways. Even the foodstuffs are all still in place, as far as you can tell.\n" +
+                        "\n" +
+                        "Actually, there is one thing that is missing… All of the staff hats, and even the hairnets, are gone. It looks like your head’s still going to remain bare for the foreseeable future.\n" +
+                        "\n" +
+                        "With a sigh, you turn to look out the window. Suddenly, a shiver runs down your spine. Is the sun… supposed to look like… that?\n" +
+                        "\n" +
+                        "Eh. It’s PROBABLY nothing.\n",//Text
+                "What about the sun?!?","14",//Choice1Text, Choice1ID
+                "",NO//Choice2Text, Choice2ID
+                //isInitial (optional)
+
+        ));
+        helper.insertEvent(createEvent(
                 "Waterless water?","13",//Title, Id
                 "There’s not much to explain. I mean, I’m sure you know what “water” means, and you probably know what “dehydrated” means, right? So if you take some water, and then dehydrate it, what do you get? It’s as simple as that.\n" +
                         "\n" +
@@ -364,20 +378,6 @@ public class CreateDefaultStory {
                         "\n" +
                         "Moving on.\n",//Text
                 "Look for clues","8",//Choice1Text, Choice1ID
-                "",NO//Choice2Text, Choice2ID
-                //isInitial (optional)
-
-        ));
-        helper.insertEvent(createEvent(
-                "Looking around","8",//Title, Id
-                "You pace around the kitchen, looking for anything there that shouldn’t be—or anything that should be there but isn’t, but the only difference seems to be the lack of staff—other than yourself, anyways. Even the foodstuffs are all still in place, as far as you can tell.\n" +
-                        "\n" +
-                        "Actually, there is one thing that is missing… All of the staff hats, and even the hairnets, are gone. It looks like your head’s still going to remain bare for the foreseeable future.\n" +
-                        "\n" +
-                        "With a sigh, you turn to look out the window. Suddenly, a shiver runs down your spine. Is the sun… supposed to look like… that?\n" +
-                        "\n" +
-                        "Eh. It’s PROBABLY nothing.\n",//Text
-                "What about the sun?!?","14",//Choice1Text, Choice1ID
                 "",NO//Choice2Text, Choice2ID
                 //isInitial (optional)
 

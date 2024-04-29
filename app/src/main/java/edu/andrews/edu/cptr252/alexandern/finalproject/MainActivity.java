@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("name", MODE_PRIVATE);
         SharedPreferences.Editor sharedEditor = sharedPreferences.edit();
 
-        String name = sharedPreferences.getString("name","");
+        String name = sharedPreferences.getString("name","Finklebur");
         editName.setText(name);
 
         beginBtn.setOnClickListener(new View.OnClickListener() {
