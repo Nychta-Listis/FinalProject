@@ -86,7 +86,7 @@ public class CreateDefaultStory {
     public void createStory() {
         helper = new DAOEvents(this.context);
         helper.insertEvent(createEvent(
-                "36","36",//Title, Id
+                "A new adventure","36",//Title, Id
                 "“Alright then,” she says, smiling. “Get on my back, if you will.”\n" +
                         "\n" +
                         "You do so. Woebegone slowly rises up with a sound like gunfire—it’s a little dizzying, being this high up with only her spine (well, her spine spine, but you know) holding you up—and turns toward the windows. Something that is DEFINITELY the Sun DOES NOT look back at you steadily. Possibly many things.\n" +
@@ -97,7 +97,7 @@ public class CreateDefaultStory {
                 //isInitial (optional)
         ));
         helper.insertEvent(createEvent(
-                "35","35",//Title, Id
+                "...","35",//Title, Id
                 "And then you’re gone.",//Text
                 "The end?",MENU,//Choice1Text, Choice1ID
                 "",NO//Choice2Text, Choice2ID
@@ -105,7 +105,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "33","33",//Title, Id
+                "Nope!","33",//Title, Id
                 "“...What?” Her neck rears back, and she tilts her head quizzically, making a sound like evil bubble wrap all the while. “(heroName), you’ve never really been one for sarcasm. What gives?”\n" +
                         "\n" +
                         "“Sorry, but all this stuff’s a human problem, and with the way stuff like this works I’m probably going to have to sacrifice my life or something at the end, except there’ll, like, maybe be a chance that I survive by some contrived twist? Either way, that’s not what I signed up for!”\n" +
@@ -125,7 +125,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "32","32",//Title, Id
+                "The nices!","32",//Title, Id
                 "“You hope you’re the only one with the nices? What a terrible thing to say!”\n" +
                         "\n" +
                         "“No, no, I meant—”\n" +
@@ -137,7 +137,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "31","31",//Title, Id
+                "What? Me?","31",//Title, Id
                 "“(heroName)… I’ve studied the matter inside and out, and while the Soda Supernova may have been immeasurably greater than anything the world has seen before, and even managed to rope entities or forces hitherto unknown to humanity into its melting pot of horrors, it still fundamentally operates on the same principles that summer camp occultism always has. And that means…”\n" +
                         "\n" +
                         "“It can be reversed!” you say, your eyes widening.\n" +
@@ -153,7 +153,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "30","30",//Title, Id
+                "What is it like?","30",//Title, Id
                 "“There are… a lot of parts that are difficult if not literally impossible to talk about. But I think that you can probably guess at some of the broad strokes. Remember 2011, when James Cooper used bubblegum that he’d already chewed up for the—”\n" +
                         "\n" +
                         "“Oh, gosh! Don’t remind me!”\n" +
@@ -169,7 +169,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "28","28",//Title, Id
+                "The outside world","28",//Title, Id
                 "“Yes. Civilization fell, billions died, the works. And if they came back they’d die all over again, probably in even more creative ways. Next question.”\n" +
                         "\n" +
                         "“Dang. Now I’m sad.”\n" +
@@ -185,7 +185,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "29","29",//Title, Id
+                "Why here?","29",//Title, Id
                 "“As long as I stay here, I’m still ‘doing my job’, which affords me a least some level of protection. Early on this place still had it pretty bad due to, like I mentioned, its proximity to ‘ground zero’, but from my limited knowledge of the global situation it seems like over time the… badness-levels have gradually evened out, at least within the Day Side. Come to a sort of equilibrium.” (I took Thermodynamics last semester.)\n" +
                         "\n" +
                         "“Besides… I’ve kind of been waiting for you.”\n",//Text
@@ -195,7 +195,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "25","25",//Title, Id
+                "Nadir Solstitial","25",//Title, Id
                 "“Just my little nickname for the apocalypse.” she says. “The Aurora Terminal, the Focal Antitheosis… I think it’s fond of stuff like that, you know—fancy words, poetic epithets. It’s silly… but only in a distant, ironic way. I’ve come to suspect that that’s part of its nature: absurdity, everything done in an over-the-top manner—and yet bitter, horrific, twisted, devoid of any genuine mirth. Its drama is self-serious, its absurdity as much to confuse and dissatisfy as to amuse. I think… I think that’s part of why you come in. But I’m getting ahead of myself.\n" +
                         "\n" +
                         "“The actual event is… let’s just say it’s ‘HARD to TALK ABOUT’.” She grimaces slightly as she seems to mockingly imitate a voice that you’re unfamili… actually, you somehow feel like you actually have heard it before. In a dream? No, that’s not quite right… Woebegone continues:\n" +
@@ -207,7 +207,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "27","27",//Title, Id
+                "The change","27",//Title, Id
                 "“…Let’s just say I forgot my ‘sunscreen’. I’d rather not talk about the details. I still hate this with, very literally, every bone in my body, but I’ve gotten as used to it as one can over the years. Sorry I couldn’t get you out of the freezer myself—I’ve tried loads of times, but I have a hard time even getting into the kitchen, my dexterity’s crap, and I’ve had… issues getting assistance.”\n" +
                         "\n" +
                         "She sighs.\n" +
@@ -219,7 +219,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "24","24",//Title, Id
+                "Questions","24",//Title, Id
                 "\"Sure thing, buddy.\" she says, smiling wryly. \"Ask away.\"",//Text
                 "What is the Nadir Solstitial?","25",//Choice1Text, Choice1ID
                 "What happened to your body?","27"//Choice2Text, Choice2ID
@@ -227,7 +227,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "23","23",//Title, Id
+                "A friend?","23",//Title, Id
                 "Y-yes, Head Counselor. It’s me, (heroName). Are you… are you alright?” you ask, still somewhat fearful.\n" +
                         "\n" +
                         "Her spine-neck slithers over to you, differentiating to the fourth, fifth, and sixth orders as it goes. (I already took calculus back in high school.) The head slowly rises from the floor, until it’s at your height, and you’re directly face-to-face.\n" +
@@ -245,7 +245,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "21","21",//Title, Id
+                "Consumption","21",//Title, Id
                 "Really, truly her. If her mind, and not just her body, had been altered to any significant degree, the contract would have been made null and void.\n" +
                         "\n" +
                         "You are a fool, and, now, a murderer. You deserve this.\n" +
@@ -265,7 +265,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "20","20",//Title, Id
+                "STOP IT","20",//Title, Id
                 "With a grimace of disgust, and a gesture of your hand, the serpentine plasma rushes forward, ensnaring it, wreathing it in flames. And it writhes.\n" +
                         "\n" +
                         "Oh, it writhes.\n" +
@@ -283,7 +283,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "19","19",//Title, Id
+                "MAKE IT DIE!","19",//Title, Id
                 "Using your elf magic, you light the fireplace… and by sheer force of will, tendrils of pure flame begin to creep forward toward the thing that stole the Head Counselor’s face.\n" +
                         "\n" +
                         "“(heroName)… um, what are you doing?” the hideous impostor says, beginning to curl up its hideous limbs with a noise like bubblewrap, apparently preparing to stand up. “The fireplace doesn’t need to be lit right now—light and warmth aren’t exactly in short supply anymore.”\n" +
@@ -299,7 +299,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "18","18",//Title, Id
+                "A familiar face?","18",//Title, Id
                 "Her(?) neck Snaps™, Crackles™, and Pops™ sickeningly as she(?) turns her(?) gaze from one of the now-motionless ceiling fans to face you.\n" +
                         "\n" +
                         "“(heroName)???” Despite seemingly lacking any lungs, that’s Woebegone(?)’s voice, alright. A little older, a little hoarser, perhaps… but fundamentally the same. She(?) sounds astounded, but not in a bad way, and evidently recognizes you one way or another.\n" +
@@ -313,7 +313,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "16","16",//Title, Id
+                "Moving on","16",//Title, Id
                 "You pass into the serving area—empty, dusty, and thankfully windowless—and then into the main dining and meeting area in the center of the lodge.\n" +
                         "\n" +
                         "Due to a bizarre optical illusion and/or optical refraction/reflection thingy (I have yet to take Optics), you can see the sun glaring through every single pane of every single window, on both sides of the building, bathing every inch of the large, high room in a bloody red light. The fireplace is unlit, all of the tables and chairs have been put away, and across the floor…\n" +
@@ -325,7 +325,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "15","15",//Title, Id
+                "An Eclipse","15",//Title, Id
                 "That’s… that isn’t how… that MUST be how eclipses work, right? Whatever you may have heard about them in the past, you have now witnessed one with your own two elf eyes, and seeing is believing, after all.\n" +
                         "\n" +
                         "It happens again. The sunspot quickly moves from side to side, almost as if it was searching for… searching for…\n" +
@@ -339,7 +339,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "14","14",//Title, Id
+                "The Dark Sun","14",//Title, Id
                 "At first you thought it was looking at you, somehow (well, not you specifically, but somewhere in your general vicinity, at least), but now you’re pretty sure that’s just, like, a really big sunspot, not a pupil or anything. That wouldn’t make any sense!\n" +
                         "\n" +
                         "Hm… now that you’re paying closer attention to it, it seems like it’s a bit too high in the sky for it to be sunset or sunrise. Must be something in the air making it all reddish and stuff… Pollution? Wildfires? Either way, it’s a clue.\n" +
@@ -353,7 +353,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "13","13",//Title, Id
+                "Waterless water?","13",//Title, Id
                 "There’s not much to explain. I mean, I’m sure you know what “water” means, and you probably know what “dehydrated” means, right? So if you take some water, and then dehydrate it, what do you get? It’s as simple as that.\n" +
                         "\n" +
                         "That’s what came out of the faucets when (heroName) tried to make use of any of the sinks.\n" +
@@ -363,13 +363,13 @@ public class CreateDefaultStory {
                         "(If you still don’t understand, don’t worry. It’s called… “dry humor”.)\n" +
                         "\n" +
                         "Moving on.\n",//Text
-                "Look for clues","14",//Choice1Text, Choice1ID
+                "Look for clues","8",//Choice1Text, Choice1ID
                 "",NO//Choice2Text, Choice2ID
                 //isInitial (optional)
 
         ));
         helper.insertEvent(createEvent(
-                "8","8",//Title, Id
+                "Looking around","8",//Title, Id
                 "You pace around the kitchen, looking for anything there that shouldn’t be—or anything that should be there but isn’t, but the only difference seems to be the lack of staff—other than yourself, anyways. Even the foodstuffs are all still in place, as far as you can tell.\n" +
                         "\n" +
                         "Actually, there is one thing that is missing… All of the staff hats, and even the hairnets, are gone. It looks like your head’s still going to remain bare for the foreseeable future.\n" +
@@ -383,7 +383,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "11","11",//Title, Id
+                "Pointless MAGIC!","11",//Title, Id
                 "“Pointless”? Elves aren’t supposed to have self-doubt, buddy. Get with the program!\n" +
                         "\n" +
                         "…The flour and stuff isn’t rotten, exactly, but it sure smells funny. And besides, you’re pretty sure cookies need, like, milk as an ingredient, right? You’re not totally sure, but that stuff’s looong gone, unless you’re willing to figure out how the powdered milk works.\n" +
@@ -399,7 +399,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "10","10",//Title, Id
+                "Another Freezer","10",//Title, Id
                 "Huh. Seems like the rot’s gotten into this place, too.\n" +
                         "\n" +
                         "Figures.\n" +
@@ -411,7 +411,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "9","9",//Title, Id
+                "Cook em up!","9",//Title, Id
                 "You don’t have any hollowed out trees on hand—at least not indoors, and you’re hesitant to go outside when it’s going to be getting dark soon, at least without a flashlight. That said, you will attempt to live up to the legacy of your commercialized archetypical antecedent to the utmost!!! Within the bounds of Fair-Use-protected parody, of course.\n" +
                         "\n" +
                         "You don’t actually have any idea how to cook—let’s just say that during camp your job involved dealing with the kids more directly than spending all your time brewing stuff up over here—but there’s a first time for everything. Hopefully Head Counselor Woebegone and/or her Acolytes won’t be too upset about your wanton misuse of camp resources… you’re just a silly elf, after all. What a scamp! Heheheheh. Hee. Hee.\n" +
@@ -423,7 +423,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "7","7",//Title, Id
+                "Somewhere new!","7",//Title, Id
                 "You open the door, revealing a terrible sight…\n" +
                         "\n" +
                         "Before your very eyes, now widened with astonishment, you behold… oh saints above and spirits below, you behold…!\n" +
@@ -441,7 +441,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "6","6",//Title, Id
+                "Exiting the Freezer","6",//Title, Id
                 "You awkwardly shuffle over to the door, nearly slipping a couple of times—the floor is covered with a thin layer of half-melted iciness, giving it just about maximum slipperiness—until that “nearly” becomes a “fully and truly” just as you’re about to reach the metal door.\n" +
                         "\n" +
                         "You careen forward, your gravitational potential energy rapidly converting into kinetic energy both translational and rotational!! (I’m taking Classical Mechanics this semester.) Your elf forehead bonks against the hard surface, causing iridescent fractals to blossom across your eyeballs—and also pushing it open. You grab hold of the door handle just in time to prevent yourself from falling face-first onto your beautiful, fragile elf nose, and you manage to steady yourself, rise, and slide forward.\n" +
@@ -453,7 +453,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "4b","4b",//Title, Id
+                "Contemplation","4b",//Title, Id
                 "Oh dear, oh my! What could have possibly befallen this place?!?! you wonder. Perhaps… uh… the camp got shut down, leaving no one to maintain it—and leaving you behind? I mean… kinda weird that nobody bothered clearing out the place, but something along those lines is probably what happened, right?\n" +
                         "\n" +
                         "No! Not silly enough! Are you an elf or not?\n" +
@@ -476,7 +476,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "2b","2b",//Title, Id
+                "The Freezer","2b",//Title, Id
                 "Ah yes, the wonders of meat! Flesh upon bloody flesh! You are surrounded by beautiful corpses ripe for consumption (your sharp elf teeth strong enough to gnaw into even the hardest death icicle, unthawed or not). Or perhaps… a bit overripe.\n" +
                         "\n" +
                         "You are now forced to reckon with a tremendous stench, which has only just now finished making its way down your long, pointy elf nose! The thick hunks of mystery meat have succumbed to an insidious rot. This confirms your earlier suspicion: something is wrong with the freezer, causing its temperature to drop below acceptable thresholds… and given that the rot has had enough time to take hold, it’s been this way for a while now. What happened here?\n",//Text
@@ -486,7 +486,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "3","3",//Title, Id
+                "Getting out","3",//Title, Id
                 "You stretch your half-frozen muscles and ligaments, attaining a somewhat greater freedom of movement, rub your clammy hands together, and begin snapping the various icicles hanging off of you and scraping off the frozen film still covering the better part of your body.\n" +
                         "\n" +
                         "You then realize, with a dawning horror, that Head Counselor Woebegone left you here naked—naked! Or, well, she might as well have—you’re missing your silly elf hat! You feel a great, howling abyss open up in the depths of your soul, and know that you will never be…\n" +
@@ -502,7 +502,7 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "4a","4a",//Title, Id
+                "Contemplation","4a",//Title, Id
                 "Oh dear, oh my! What could have possibly befallen this place?!?! you wonder. Perhaps… uh… the camp got shut down, leaving no one to maintain it—and leaving you behind? I mean… kinda weird that nobody bothered clearing out the place, but something along those lines is probably what happened, right?\n" +
                         "\n" +
                         "No! Not silly enough! Are you an elf or not?\n" +
@@ -525,17 +525,17 @@ public class CreateDefaultStory {
 
         ));
         helper.insertEvent(createEvent(
-                "2a","2a",//Title, Id
+                "The Freezer","2a",//Title, Id
                 "Ah yes, the wonders of meat! Flesh upon bloody flesh! You are surrounded by beautiful corpses ripe for consumption (your sharp elf teeth strong enough to gnaw into even the hardest death icicle, unthawed or not). Or perhaps… a bit overripe.\n" +
                         "\n" +
                         "You are now forced to reckon with a tremendous stench, which has only just now finished making its way down your long, pointy elf nose! The thick hunks of mystery meat have succumbed to an insidious rot. This confirms your earlier suspicion: something is wrong with the freezer, causing its temperature to drop below acceptable thresholds… and given that the rot has had enough time to take hold, it’s been this way for a while now. What happened here?\n",//Text
-                "Speculate","3",//Choice1Text, Choice1ID
-                "Escape frost","4a"//Choice2Text, Choice2ID
+                "Escape Frost","3",//Choice1Text, Choice1ID
+                "Speculate","4a"//Choice2Text, Choice2ID
                 //isInitial (optional)
 
         ));
         helper.insertEvent(createEvent(
-                "1","1",//Title, Id
+                "Summer Camp Elf Quest","1",//Title, Id
                 "As the muggy heat of summer washes over the countryside, you, (heroName) the Elf, emerge from your hibernation in the back of the meat freezer.\n" +
                         "\n" +
                         "…Wait, I’m sorry, what? You’re in a… a meat freezer? Something is seriously wrong here!\n" +
